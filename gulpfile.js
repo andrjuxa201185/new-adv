@@ -13,18 +13,19 @@ const reload = browserSync.reload;
 
 const path = {
     src: {
-        js: ["./app/script/*.js", "./lib/*.js"],
-        css: ["./app/style/css.css", "./lib/bootstrap/*.css"],
+        js: "./app/script/*.js",
+        css: "./app/style/css.css",
+        lib: "./app/lib/**/*",
         html:"./app/html/**/*.html",
         scss: "./app/style/css.scss"
     },
     build: {
-        js: "build/js/",
-        css: "build/style/",
-        html: "build/html/"
+        js: "./build/js/",
+        css: "./build/style/",
+        html: "./build/html/",
+        lib: "./build/lib/"
     },
 };
-
 gulp.task("html", function () {
     gulp.src(path.src.html)
     .pipe(rigger())
@@ -47,25 +48,31 @@ gulp.task("css-minify", function (){
     .pipe(reload({stream: true}));
 });
 
+gulp.task("lib", function (){
+    return gulp.src(path.src.lib)
+    .pipe(gulp.dest(path.build.lib))
+    .pipe(reload({stream: true}));
+});
+
 gulp.task('reload-css', function(){
     runSequence('scss', 'css-minify');
 });
 
 gulp.task('images', function(){
     return gulp.src("./app/images/**/*")
-    .pipe(imagemin([
-        imagemin.gifsicle({interlaced: true}),
-        imagemin.jpegtran({progressive: true}),
-        imagemin.optipng({optimizationLevel: 5}),
-        imagemin.svgo({
-            plugins: [
-                {removeViewBox: true},
-                {cleanupIDs: false}
-            ]
-        })
-    ], {
-        verbose: true
-    }))
+    // .pipe(imagemin([
+    //     imagemin.gifsicle({interlaced: true}),
+    //     imagemin.jpegtran({progressive: true}),
+    //     imagemin.optipng({optimizationLevel: 5}),
+    //     imagemin.svgo({
+    //         plugins: [
+    //             {removeViewBox: true},
+    //             {cleanupIDs: false}
+    //         ]
+    //     })
+    // ], {
+    //     verbose: true
+    // }))
     .pipe(gulp.dest('build/images/'))
     .pipe(reload({stream: true}));
 });
@@ -84,10 +91,8 @@ gulp.task('clean', function(){
 
 gulp.task('browser-sync', function(){
     browserSync({
-        startPath: '/',
-        server: {
-            baseDir: 'build/html'
-        },
+        startPath: '/html',
+        server: 'build',
         notify: false
     });
 });
@@ -95,10 +100,20 @@ gulp.task('browser-sync', function(){
 gulp.task('watch',function(){
     gulp.watch(path.src.html, ['html']);
     gulp.watch('app/style/*.scss', ['reload-css']);
+    gulp.watch('app/script/*.js', ['js-minify']);
 });
 
 gulp.task('run', function(){
-    runSequence('clean', 'html', 'reload-css','js-minify', 'browser-sync', 'watch');
+    runSequence(
+        'clean', 
+        'html', 
+        'lib',
+        'reload-css',
+        'js-minify', 
+        'images', 
+        'browser-sync',
+        'watch'
+    );
 });
 
 gulp.task('default', ['run']); 
