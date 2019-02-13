@@ -13,19 +13,29 @@ const reload = browserSync.reload;
 
 const path = {
     src: {
-        js: "./app/script/*.js",
+        js: "./app/script/**/*.js",
         css: "./app/style/css.css",
         lib: "./app/lib/**/*",
-        html:"./app/html/**/*.html",
-        scss: "./app/style/css.scss"
+        html:"./app/html/*.html",
+        scss: "./app/style/css.scss",
+        images: "./app/images/**/*"
     },
     build: {
-        js: "./build/js/",
+        js: "./build/script/",
         css: "./build/style/",
         html: "./build/html/",
-        lib: "./build/lib/"
+        lib: "./build/lib/",
+        images: "./build/images/"
     },
 };
+
+gulp.task("js-minify", function (){
+    return gulp.src(path.src.js)
+    // .pipe(jsMinify())
+    .pipe(gulp.dest(path.build.js))
+    .pipe(reload({stream: true}));
+});
+
 gulp.task("html", function () {
     gulp.src(path.src.html)
     .pipe(rigger())
@@ -33,7 +43,7 @@ gulp.task("html", function () {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('scss', function () {
+gulp.task('sass', function () {
     return gulp.src(path.src.scss)
      .pipe(sourcemaps.init())
      .pipe(sass().on('error', sass.logError))
@@ -55,11 +65,11 @@ gulp.task("lib", function (){
 });
 
 gulp.task('reload-css', function(){
-    runSequence('scss', 'css-minify');
+    runSequence('sass', 'css-minify');
 });
 
 gulp.task('images', function(){
-    return gulp.src("./app/images/**/*")
+    return gulp.src(path.src.images)
     // .pipe(imagemin([
     //     imagemin.gifsicle({interlaced: true}),
     //     imagemin.jpegtran({progressive: true}),
@@ -73,16 +83,10 @@ gulp.task('images', function(){
     // ], {
     //     verbose: true
     // }))
-    .pipe(gulp.dest('build/images/'))
+    .pipe(gulp.dest(path.build .images))
     .pipe(reload({stream: true}));
 });
 
-gulp.task("js-minify", function (){
-    return gulp.src(path.src.js)
-    .pipe(jsMinify())
-    .pipe(gulp.dest(path.build.js))
-    .pipe(reload({stream: true}));
-});
 
 gulp.task('clean', function(){
     return gulp.src('build')
@@ -92,7 +96,9 @@ gulp.task('clean', function(){
 gulp.task('browser-sync', function(){
     browserSync({
         startPath: '/html',
-        server: 'build',
+        server: {
+            baseDir: 'build'
+        },
         notify: false
     });
 });
@@ -107,10 +113,9 @@ gulp.task('run', function(){
     runSequence(
         'clean', 
         'html', 
-        'lib',
         'reload-css',
         'js-minify', 
-        'images', 
+        'images',
         'browser-sync',
         'watch'
     );
