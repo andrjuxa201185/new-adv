@@ -114,8 +114,8 @@ gulp.task('run', function(){
         'clean', 
         'html', 
         'reload-css',
-        'js-minify', 
         'images',
+        'js-minify',
         'browser-sync',
         'watch'
     );
