@@ -14,9 +14,10 @@ section.molecule {
         font-weight: bold;
         letter-spacing: 10px;
         text-indent: 10px;
+        color: white;
     }
     canvas {
-        background-color: rgb(197, 164, 54);
+        background-color: black;
     }
 }
 
@@ -31,7 +32,6 @@ section.technology {
             overflow: hidden;
             height: 50vh;
             position: relative;
-
             .inner-parallax{
                 overflow: hidden;
                 display: flex;
@@ -39,10 +39,10 @@ section.technology {
                 align-items: center;
                 height: 80vh;
                 width: 100%;
-                background-color: aqua;
-
+                background-color: darkslategrey;
                 img {
                     height: 50%;
+                    
                 }
             }
             button {
@@ -51,13 +51,14 @@ section.technology {
                 left: 50%;
                 transform: translate(-50%, -50%);
                 background-color: transparent;
-                padding: 20px 30px;
+                padding: 50px 80px;
                 font-size: 52px;
                 color: white;
                 letter-spacing: 5px;
                 border: none;
                 font-weight: bold;
-                // display: block;
+                outline: none;
+
             }
         }
     }
