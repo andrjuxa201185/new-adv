@@ -32,6 +32,8 @@ section.technology {
             overflow: hidden;
             height: 50vh;
             position: relative;
+            // outline: solid 1px black;
+            
             .inner-parallax{
                 overflow: hidden;
                 display: flex;
@@ -53,12 +55,18 @@ section.technology {
                 background-color: transparent;
                 padding: 50px 80px;
                 font-size: 52px;
-                color: white;
+                color: chartreuse;
                 letter-spacing: 5px;
                 border: none;
                 font-weight: bold;
                 outline: none;
+                opacity: 0;
+                transition: all .4s;
+                cursor: pointer;
 
+                &:hover{
+                    opacity: 1;
+                }
             }
         }
     }
