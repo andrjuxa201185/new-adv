@@ -8,21 +8,24 @@ class Point {
       this.color = "rgb(128, 255, 0)";
       this.size = 4;
       this.numberLine = 0;
+      this.mouseX;
+      this.mouseY;
     }
 
-    setParam(e){
-      let x, y;
+    setMouseCoord(e){
       if (e){
-        x = e.offsetX;
-        y = e.offsetY;
+        this.mouseX = e.offsetX;
+        this.mouseY = e.offsetY;
       }
+    }
 
+    setParam(){
       this.numberLine = 0;
       this.size = 2 + Math.random() * 5;
-      this.speedY = -0.5 + Math.random() * 1;
       this.speedX = -0.5 + Math.random() * 1;
-      this.positionY = y || Math.random() * 700;
-      this.positionX = x || Math.random() * 1550;
+      this.speedY = -0.5 + Math.random() * 1;
+      this.positionX = this.mouseX || Math.random() * 1550;
+      this.positionY = this.mouseY || Math.random() * 700;
     }
 
     drowPoint(ctx){

@@ -46,11 +46,8 @@ class Molecule {
         if (this.isAnimated) return;
         let t = 500;
         for (let i = 0; i < this.numOfpoint; i++) {
-            // setTimeout(() => {
-                this.point[i] = new this.figure();
-                this.point[i].setParam();
-            // }, t);
-            // t += Math.random() * 100;
+            this.point[i] = new this.figure();
+            this.point[i].setParam();
         }
         this.animate();
     } 
