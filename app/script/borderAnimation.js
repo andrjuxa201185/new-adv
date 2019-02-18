@@ -51,15 +51,14 @@ function BorderAnimation(elem){
 }
 
 
-if(window.innerWidth > 992){
-    window.addEventListener('load', function(){
-        
-        let buttons = document.getElementsByClassName("border-show");
-        if (buttons[0]){
-            for (let i = 0; i < buttons.length; i++) {
-                new BorderAnimation(buttons[i]);
-            }
+window.addEventListener('load', function(){
+    
+    let buttons = document.getElementsByClassName("border-show");
+    if (buttons[0]){
+        for (let i = 0; i < buttons.length; i++) {
+            new BorderAnimation(buttons[i]);
         }
-    });
-}
+    }
+});
+
 

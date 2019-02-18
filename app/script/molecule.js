@@ -17,23 +17,23 @@ class Molecule {
             if (this.point[i]) {
                 this.point[i].drowPoint(this.ctx);
 
-                for (let j = 0; j < this.numOfpoint; j++) {
-                    if (this.point[j]){
-                        if ((this.point[i].positionX < this.point[j].positionX + 250) && (this.point[i].positionX > this.point[j].positionX - 250)){
-                            if ((this.point[i].positionY < this.point[j].positionY + 250) && (this.point[i].positionY > this.point[j].positionY - 250)){
-                                if ((this.point[i].numberLine < 2) && (this.point[j].numberLine < 2)) {
-                                    this.point[i].drowLine(this.ctx, this.point[j].positionX, this.point[j].positionY);
-                                    this.point[i].numberLine += 1;
-                                    this.point[j].numberLine += 1;
-                                }
-                            }else{
-                                this.point[i].numberLine = 0;
-                            }
-                        }else{
-                            this.point[i].numberLine = 0;
-                        }
-                    }
-                }
+                // for (let j = 0; j < this.numOfpoint; j++) {
+                //     if (this.point[j]){
+                //         if ((this.point[i].positionX < this.point[j].positionX + 250) && (this.point[i].positionX > this.point[j].positionX - 250)){
+                //             if ((this.point[i].positionY < this.point[j].positionY + 250) && (this.point[i].positionY > this.point[j].positionY - 250)){
+                //                 if ((this.point[i].numberLine < 2) && (this.point[j].numberLine < 2)) {
+                //                     this.point[i].drowLine(this.ctx, this.point[j].positionX, this.point[j].positionY);
+                //                     this.point[i].numberLine += 1;
+                //                     this.point[j].numberLine += 1;
+                //                 }
+                //             }else{
+                //                 this.point[i].numberLine = 0;
+                //             }
+                //         }else{
+                //             this.point[i].numberLine = 0;
+                //         }
+                //     }
+                // }
 
                 this.point[i].move();
                 this.point[i].checkPosition(this.canvas);

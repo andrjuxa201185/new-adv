@@ -71,3 +71,35 @@ section.technology {
         }
     }
 }
+@media screen and (max-width: 768px){
+    section.molecule {
+        position: relative;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        h2 {
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        canvas {
+            background-color: black;
+        }
+    }
+
+    section.technology {
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+    
+            .wrapper-parallax {
+                width: 100%;
+                .inner-parallax{
+                    img {
+                        height: 40%;
+                    }
+                }
+            }
+        }
+    }
+}
